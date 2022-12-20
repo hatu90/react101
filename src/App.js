@@ -1,8 +1,10 @@
 import React from "react";
+import { EmptyState } from "./components/EmptyState";
 import { CategorySelect } from "./components/Filtering/CategorySelect";
 import { InstockCheckbox } from "./components/Filtering/InstockCheckbox";
 import { SearchInput } from "./components/Filtering/SearchInput";
 import { Sorting } from "./components/Filtering/Sorting";
+import { ProductItem } from "./components/Product/ProductItem";
 
 function App() {
   const products = [
@@ -53,8 +55,20 @@ function App() {
       <Sorting criteria={sortCriteria} onChange={setSortBy} sortBy={sortBy} />
       <hr />
       {
-        orderedProducts.map((productItem) => <p>{productItem.name}</p>)
+        showingProducts.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <>
+
+            <h2>Products</h2>
+            <p>{showingProducts.length} products found</p>
+            {
+              orderedProducts.map((productItem) => <ProductItem name={productItem.name} category={productItem.category} stocked={productItem.stocked} price={productItem.price} />)
+            }
+          </>
+        )
       }
+
     </div>
   );
 }
