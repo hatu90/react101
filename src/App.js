@@ -1,28 +1,42 @@
 import React from "react";
-import { EmptyState } from "./components/EmptyState";
 import { CategorySelect } from "./components/Filtering/CategorySelect";
 import { InstockCheckbox } from "./components/Filtering/InstockCheckbox";
 import { SearchInput } from "./components/Filtering/SearchInput";
 import { Sorting } from "./components/Filtering/Sorting";
-import { ProductItem } from "./components/Product/ProductItem";
+import { Product } from "./components/Product";
 
 function App() {
-  const products = [
-    {
-      id: 1,
-      name: 'Football',
-      category: 'Sporting goods',
-      price: 2,
-      stocked: true
-    },
-    {
-      id: 2,
-      name: 'Baseball',
-      category: 'Sporting goods',
-      price: 3,
-      stocked: false
-    }
-  ];
+  // const products = [
+  //   {
+  //     id: 1,
+  //     name: 'Football',
+  //     category: 'Sporting goods',
+  //     price: 2,
+  //     stocked: true
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Baseball',
+  //     category: 'Sporting goods',
+  //     price: 3,
+  //     stocked: false
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Baseball game',
+  //     category: 'Electronics',
+  //     price: 30,
+  //     stocked: true
+  //   }
+  // ];
+
+  const [products, setProducts] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('/products.json')
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+  }, []);
 
   const categories = ['Sporting goods', 'Electronics', 'Books'];
   const [query, setQuery] = React.useState('');
@@ -54,21 +68,7 @@ function App() {
       <InstockCheckbox checked={instockChecked} onChange={() => setInstockChecked(!instockChecked)} />
       <Sorting criteria={sortCriteria} onChange={setSortBy} sortBy={sortBy} />
       <hr />
-      {
-        showingProducts.length === 0 ? (
-          <EmptyState />
-        ) : (
-          <>
-
-            <h2>Products</h2>
-            <p>{showingProducts.length} products found</p>
-            {
-              orderedProducts.map((productItem) => <ProductItem name={productItem.name} category={productItem.category} stocked={productItem.stocked} price={productItem.price} />)
-            }
-          </>
-        )
-      }
-
+      <Product products={orderedProducts} />
     </div>
   );
 }

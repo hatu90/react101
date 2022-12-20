@@ -1,0 +1,30 @@
+[
+    {
+      "id": 1,
+      "name": "Football",
+      "category": "Sporting goods",
+      "price": 2,
+      "stocked": true
+    },
+    {
+      "id": 2,
+      "name": "Baseball",
+      "category": "Sporting goods",
+      "price": 3,
+      "stocked": false
+    },
+    {
+      "id": 3,
+      "name": "Baseball game",
+      "category": "Electronics",
+      "price": 30,
+      "stocked": true
+    },
+    {
+        "id": 4,
+        "name": "React book",
+        "category": "Books",
+        "price": 20,
+        "stocked": true
+      }
+  ]
